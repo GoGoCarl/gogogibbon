@@ -71,7 +71,7 @@ module GoGoGibbon
       # When a user is created, subscribe that user to the mailing list
       #
       def mailchimp_on_create opts={}
-        after_save GoGoGibbon::Callbacks.new opts
+        after_create GoGoGibbon::Callbacks.new opts
       end
 
       #
