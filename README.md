@@ -34,16 +34,16 @@ Optionally, you can name a cancellation list, and users will be removed
 from the subscription list and added to the cancellation list when 
 calling <code>cancel_user</code>.
 
-    ```ruby
-    GoGoGibbon::Config.unsubscribed = 'Cancellation List'
-    ```
+```ruby
+GoGoGibbon::Config.unsubscribed = 'Cancellation List'
+```
 
 Optionally, you can specify how you want error handled when you have 
 misconfigured MailChimp:
 
-    ```ruby
-    GoGoGibbon::Config.on_fail = :error || :silent || :warn
-    ```
+```ruby
+GoGoGibbon::Config.on_fail = :error || :silent || :warn
+```
 
 <code>:warn</code> will print a message to the console,
 <code>:error</code> will thrown an Exception, and <code>:silent</code> 
