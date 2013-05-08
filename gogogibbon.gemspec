@@ -10,4 +10,6 @@ Gem::Specification.new do |s|
   s.files         = Dir['lib/**/*'] + Dir['*.rb'] + ["gogogibbon.gemspec"]
   s.require_paths = ["lib"]
   s.homepage      = 'http://github.com/GoGoCarl/gogogibbon'
+
+  s.add_dependency 'gibbon'
 end
