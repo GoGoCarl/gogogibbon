@@ -55,7 +55,7 @@ module GoGoGibbon
       result
     end
 
-    def instance base
+    def included base
       base.class_eval do
         extend ClassMethods
       end

@@ -2,7 +2,10 @@ module GoGoGibbon
 
   class Callbacks
 
-    attr_accessor :options
+    def initialize opts={}
+      @options = { :thread => false }
+      @options.merge! opts
+    end
 
     def after_create record
       run do
