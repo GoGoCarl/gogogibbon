@@ -49,6 +49,15 @@ GoGoGibbon::Config.on_fail = :error || :silent || :warn
 <code>:error</code> will thrown an Exception, and <code>:silent</code> 
 will do nothing.  The default is warn.
 
+Gibbon, by default, throws errors for any problems that occur when 
+communicating to the MailChimp API.  If you want these errors 
+thrown, you can use the following:
+
+GoGoGibbon::Config.errors = :throw
+
+Otherwise, errors will not be thrown, just a status indicator will be 
+returned noting there was an error.
+
 ## Usage
 
 See <code>lib/gogogibbon.rb</code> for a list of all available methods. 

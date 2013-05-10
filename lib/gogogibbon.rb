@@ -10,8 +10,7 @@ module GoGoGibbon
     # Add a new user to the MailChimp subscription list
     #
     def subscribe user
-      return unless ready?
-      GoGoGibbon::Commands.subscribe user
+      execute { GoGoGibbon::Commands.subscribe user }
     end
 
     #
@@ -19,8 +18,7 @@ module GoGoGibbon
     # This will not re-add them if they are already there.
     #
     def subscribe_all
-      return unless ready?
-      GoGoGibbon::Commands.subscribe_all
+      execute { GoGoGibbon::Commands.subscribe_all }
     end
 
     #
@@ -28,8 +26,7 @@ module GoGoGibbon
     # a cancellation list configured, they will be subscribed to that.
     #
     def cancel_user user
-      return unless ready?
-      GoGoGibbon::Commands.cancel_user user
+      execute { GoGoGibbon::Commands.cancel_user user }
     end
 
     #
@@ -39,8 +36,18 @@ module GoGoGibbon
     # differently.
     #
     def update_subscription old_email, user
+      execute { GoGoGibbon::Commands.update_subscription old_email, user }
+    end
+
+    def execute &block
       return unless ready?
-      GoGoGibbon::Commands.update_subscription old_email, user
+      yield
+    rescue Exception => e
+      if GoGoGibbon::Config.errors = :throw
+        raise e
+      else
+        return false
+      end
     end
 
     #

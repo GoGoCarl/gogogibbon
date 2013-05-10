@@ -4,7 +4,7 @@ module GoGoGibbon
   class Config
     class << self
 
-      attr_accessor :subscribed, :unsubscribed, :api_key, :chimp, :on_fail
+      attr_accessor :subscribed, :unsubscribed, :api_key, :chimp, :errors, :on_fail
 
       def api_key=(value)
         @chimp = Gibbon.new value
