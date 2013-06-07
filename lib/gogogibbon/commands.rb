@@ -60,7 +60,7 @@ module GoGoGibbon
       #
       def cancel_user user
         result = false
-        unsubscribe user
+        unsubscribe user, sub_list
         result = subscribe user, unsub_list
         result
       end
