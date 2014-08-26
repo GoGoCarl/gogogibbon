@@ -11,5 +11,5 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.homepage      = 'http://github.com/GoGoCarl/gogogibbon'
 
-  s.add_dependency 'gibbon'
+  s.add_dependency 'gibbon', '0.4.6'
 end
