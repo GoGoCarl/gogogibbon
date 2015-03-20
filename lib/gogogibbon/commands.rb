@@ -96,9 +96,15 @@ module GoGoGibbon
 
         sub_id = list list_name
         unless sub_id.nil?
-          result = chimp.list_update_member :id => sub_id, 
-            :email_address => old_email, 
-            :merge_vars => { 'EMAIL' => user.email, 'FNAME' => user.first_name, 'LNAME' => user.last_name }
+          batch = []
+          batch << {
+            'EMAIL' => user.email, 'FNAME' => user.first_name, 'LNAME' => user.last_name
+          }
+
+          result = chimp.list_batch_subscribe :id => sub_id,
+            :batch => batch, 
+            :double_optin => false,
+            :update_existing => true
         end
         result
       end
