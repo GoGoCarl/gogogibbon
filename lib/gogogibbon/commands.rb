@@ -10,11 +10,15 @@ module GoGoGibbon
         result = false
         sub_id = list list_name
         unless sub_id.nil?
-          result = chimp.list_subscribe :id => sub_id, 
-            :email_address => user.email,
-            :merge_vars => { 'FNAME' => user.first_name, 'LNAME' => user.last_name }, 
-            :double_optin => false, 
-            :send_welcome => false
+          begin
+            result = chimp.list_subscribe :id => sub_id, 
+              :email_address => user.email,
+              :merge_vars => { 'FNAME' => user.first_name, 'LNAME' => user.last_name }, 
+              :double_optin => false, 
+              :send_welcome => false
+          rescue Gibbon::MailChimpError => e
+            raise e unless e.code == 214
+          end
         end
         result
       end
@@ -45,11 +49,15 @@ module GoGoGibbon
 
         sub_id = list list_name
         unless sub_id.nil?
-          result = chimp.list_unsubscribe :id => sub_id,
-            :email_address => user.email,
-            :delete_member => true,
-            :send_goodbye => false,
-            :send_notify => false
+          begin
+            result = chimp.list_unsubscribe :id => sub_id,
+              :email_address => user.email,
+              :delete_member => true,
+              :send_goodbye => false,
+              :send_notify => false
+          rescue Gibbon::MailChimpError => e
+            raise e unless e.code == 215
+          end
         end
         result
       end
@@ -66,12 +74,19 @@ module GoGoGibbon
       end
 
       def list list_name
-        lists = chimp.lists :filters => {:list_name => list_name, :exact => true}
-        list = nil
-        if lists['error'].nil?
-          list = lists['data'].first['id'] if lists['total'] > 0
-        elsif lists['code'] == -90
-          puts 'No Mailchimp API key supplied.'
+        lists = nil
+        list  = nil
+        begin
+          lists = chimp.lists :filters => {:list_name => list_name, :exact => true}
+        rescue Gibbon::MailChimpError => e
+          raise e unless e.code == 200
+        end
+        unless lists.nil?
+          if lists['error'].nil?
+            list = lists['data'].first['id'] if lists['total'] > 0
+          elsif lists['code'] == -90
+            puts 'No Mailchimp API key supplied.'
+          end
         end
         list
       end
