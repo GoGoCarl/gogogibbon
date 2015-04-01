@@ -24,16 +24,28 @@ module GoGoGibbon
       end
 
       def subscribe_all list_name=sub_list
+        subscribe_set User, list_name
+      end
+
+      def subscribe_set users, list_name=sub_list
         result = false
 
         sub_id = list list_name
         unless sub_id.nil?
           batch = []
 
-          User.all.each do |user|
-            batch << { 
-              'EMAIL' => user.email, 'FNAME' => user.first_name, 'LNAME' => user.last_name
-            }
+          if users.respond_to? :find_each
+            users.find_each do |user|
+              batch << { 
+                'EMAIL' => user.email, 'FNAME' => user.first_name, 'LNAME' => user.last_name
+              }
+            end
+          else
+            users.each do |user|
+              batch << {
+                'EMAIL' => user.email, 'FNAME' => user.first_name, 'LNAME' => user.last_name
+              }
+            end
           end
 
           result = chimp.list_batch_subscribe :id => sub_id,
