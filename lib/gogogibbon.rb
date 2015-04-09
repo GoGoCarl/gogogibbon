@@ -2,6 +2,7 @@ require 'gogogibbon/commands'
 require 'gogogibbon/config'
 require 'gogogibbon/version'
 require 'gogogibbon/callbacks'
+require 'gogogibbon/methods'
 
 module GoGoGibbon
   class << self
@@ -60,41 +61,6 @@ module GoGoGibbon
         GoGoGibbon::Config.fail!
       end
       result
-    end
-
-    def included base
-      base.class_eval do
-        extend ClassMethods
-      end
-    end
-
-    module ClassMethods
-      #
-      # Options map can contain the following:
-      # * :thread -- true to run in a new thread, false otherwise (default false)
-      #
-
-      #
-      # When a user is created, subscribe that user to the mailing list
-      #
-      def mailchimp_on_create opts={}
-        after_create GoGoGibbon::Callbacks.new opts
-      end
-
-      #
-      # When a user is updated, update their profile, if necessary
-      #
-      def mailchimp_on_update opts={}
-        after_update GoGoGibbon::Callbacks.new opts
-      end
-
-      #
-      # When a user is deleted, cancel that user.
-      #
-      def mailchimp_on_destroy opts={}
-        after_destroy GoGoGibbon::Callbacks.new opts
-      end
-
     end
 
   end

@@ -67,8 +67,7 @@ to speed up the process.
 ### Quick Start
 
 Out the box, GoGoGibbon has three helper methods that you can add to 
-your ActiveModel to get you started.  In order to use these methods, 
-you will first need to <code>include GoGoGibbon</code>.
+your ActiveModel to get you started.
 
 1.  <code>mailchimp_on_create</code> will subscribe your user to the 
     subscription list when the record is created.  It will use the 
