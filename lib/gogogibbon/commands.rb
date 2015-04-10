@@ -23,10 +23,6 @@ module GoGoGibbon
         result
       end
 
-      def subscribe_all list_name=sub_list
-        subscribe_set User.Mailable, list_name
-      end
-
       def subscribe_set users, list_name=sub_list
         result = false
 

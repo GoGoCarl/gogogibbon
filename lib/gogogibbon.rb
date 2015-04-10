@@ -15,14 +15,6 @@ module GoGoGibbon
     end
 
     #
-    # Add all users in the database to the MailChimp subscription list. 
-    # This will not re-add them if they are already there.
-    #
-    def subscribe_all
-      execute { GoGoGibbon::Commands.subscribe_all }
-    end
-
-    #
     # Remove the user from the MailChimp subscription list.  If there is 
     # a cancellation list configured, they will be subscribed to that.
     #
