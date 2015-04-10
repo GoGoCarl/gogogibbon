@@ -32,6 +32,14 @@ module GoGoGibbon
         after_destroy GoGoGibbon::Callbacks.new opts
       end
 
+      #
+      # Return a list of users eligible to receive mail. Defaults to this class, 
+      # but can return anything relation
+      #
+      def Mailable
+        self
+      end
+
     end
 
   end
