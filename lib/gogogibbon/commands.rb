@@ -81,11 +81,8 @@ module GoGoGibbon
 
         sub_id = list list_name
         unless sub_id.nil?
-          md5 = Digest::MD5.new
-          md5.update user.email.downcase
-          user_id = md5.hexdigest
           begin
-            result = chimp.lists(sub_id).members(user_id).delete
+            result = chimp.lists(sub_id).members(user_id(user.email)).delete
           rescue Gibbon::MailChimpError => e
             if e.body['status'] == 404
               return true
@@ -135,7 +132,7 @@ module GoGoGibbon
             'merge_fields' => { 'FNAME' => user.first_name, 'LNAME' => user.last_name }
           }
 
-          result = chimp.lists(sub_id).members.upsert(body: body)
+          result = chimp.lists(sub_id).members(user_id(user.email)).upsert(body: body)
         end
         result
       end
@@ -164,6 +161,12 @@ module GoGoGibbon
 
       def unsub_list
         GoGoGibbon::Config.unsubscribed
+      end
+
+      private
+
+      def user_id email
+        Digest::MD5.new.update(email.downcase).hexdigest
       end
     end
   end
