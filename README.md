@@ -5,6 +5,10 @@ GoGoGibbon is a simple extension of Gibbon that provides wrapper methods
 for subscribing and unsubscribing users to lists.  It also works off of 
 initialization files instead of environment variables.
 
+Notice: GoGoGibbon versions 1.1.1 and prior are now deprecated, as the 
+MailChimp API v1.3 has been officially deprecated. GoGoGibbon now uses 
+MailChimp API v3.0 as of version 2.0.0, backed by Gibbon 2.2.4.
+
 ## Rails Installation
 
 1.  Add the GoGoGibbon gem entry to your Gemfile

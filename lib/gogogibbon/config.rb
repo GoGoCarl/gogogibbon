@@ -7,7 +7,7 @@ module GoGoGibbon
       attr_accessor :subscribed, :unsubscribed, :api_key, :chimp, :errors, :on_fail
 
       def api_key=(value)
-        @chimp = Gibbon.new value
+        @chimp = Gibbon::Request.new api_key: value
         @api_key = value
       end
 
